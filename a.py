@@ -140,6 +140,40 @@ def billgen():
     wait = input('\nPress any key to continue.')
 
 
+#Show all tables
+def tab():
+    con = mysql.connector.connect(host="localhost",database='hm',user="root",password="j123")
+    cur = con.cursor()
+
+    clear()
+
+    cur.execute("SHOW TABLES;")
+
+    for table_name in cur:
+        print(table_name)
+
+    con.commit()
+    con.close
+    
+    wait = input('\nPress any key to continue.')
+
+#Show contents of a specific table
+def tabcon():
+    con = mysql.connector.connect(host="localhost",database='hm',user="root",password="j123")
+    cur = con.cursor()
+
+    tabname = input("Enter the name of the table: \n")
+
+    clear()
+
+    cur.execute("SELECT * FROM "+tabname+";")
+
+    for char in cur:
+        print(char)
+
+    wait = input('\nPress any key to continue.')
+
+
 #Main menu function
 def menu():
     while True: #as long as the program is running
@@ -151,7 +185,9 @@ def menu():
         print("\n 2) Room Booking")
         print("\n 3) Add Room")
         print("\n 4) Bill Generation")
-        print("\n 5) Close Application")
+        print("\n 5) Show All Tables")
+        print("\n 6) Show Table") 
+        print("\n 7) Close Application")
         print("\n\n\n")
 
         choice = int(input("Enter your desired functions: \n"))
@@ -164,6 +200,10 @@ def menu():
         if choice == 4:
             billgen()
         if choice == 5:
+            tab()
+        if choice == 6:
+            tabcon()
+        if choice == 7:
             break
 
 
